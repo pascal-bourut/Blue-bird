@@ -46,44 +46,46 @@ export default function HomeScreen() {
         </View>
       </View>
       <Modal visible={show}>
-        <View style={{ paddingHorizontal: 15, flex: 1 }}>
-          <View style={{ paddingVertical: 40, alignItems: "flex-end" }}>
-            <TouchableWithoutFeedback onPress={() => setShow(false)}>
-              <AntDesign name="closecircleo" size={35} color="black" />
-            </TouchableWithoutFeedback>
+        <SafeAreaView style={{ flex: 1 }}>
+          <View style={{ paddingHorizontal: 15, flex: 1 }}>
+            <View style={{ paddingVertical: 40, alignItems: "flex-end" }}>
+              <TouchableWithoutFeedback onPress={() => setShow(false)}>
+                <AntDesign name="closecircleo" size={35} color="black" />
+              </TouchableWithoutFeedback>
+            </View>
+            <Text
+              style={[
+                styles.inputText,
+                { marginTop: 40, color: codeSent ? "gray" : "#262626" }
+              ]}
+            >
+              Enter your email
+            </Text>
+
+            <TextInput
+              style={[styles.input, { color: codeSent ? "gray" : "#262626" }]}
+              placeholderTextColor={codeSent ? "gray" : "#262626"}
+              placeholder="Your email"
+              editable={!codeSent}
+            />
+            {codeSent && (
+              <>
+                <Text style={[styles.inputText, { marginTop: 25 }]}>
+                  Enter your code
+                </Text>
+
+                <TextInput
+                  style={styles.input}
+                  placeholderTextColor={"#262626"}
+                  placeholder="Your code"
+                />
+              </>
+            )}
+            <TouchableOpacity onPress={onSubmit} style={styles.button}>
+              <Text style={styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
           </View>
-          <Text
-            style={[
-              styles.inputText,
-              { marginTop: 40, color: codeSent ? "gray" : "#262626" }
-            ]}
-          >
-            Enter your email
-          </Text>
-
-          <TextInput
-            style={[styles.input, { color: codeSent ? "gray" : "#262626" }]}
-            placeholderTextColor={codeSent ? "gray" : "#262626"}
-            placeholder="Your email"
-            editable={!codeSent}
-          />
-          {codeSent && (
-            <>
-              <Text style={[styles.inputText, { marginTop: 25 }]}>
-                Enter your code
-              </Text>
-
-              <TextInput
-                style={styles.input}
-                placeholderTextColor={"#262626"}
-                placeholder="Your code"
-              />
-            </>
-          )}
-          <TouchableOpacity onPress={onSubmit} style={styles.button}>
-            <Text style={styles.buttonText}>Submit</Text>
-          </TouchableOpacity>
-        </View>
+        </SafeAreaView>
       </Modal>
     </SafeAreaView>
   );
