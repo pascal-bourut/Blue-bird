@@ -16,7 +16,7 @@ import { useNavigation, useRouter, useRootNavigationState } from "expo-router";
 import { useEffect, useState } from "react";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
-import MessageModal from "../components/modals/MessageModal";
+import MessageModal from "../../../components/modals/MessageModal";
 
 export default function TopicsPostScreen() {
   const router = useRouter();
@@ -25,12 +25,6 @@ export default function TopicsPostScreen() {
 
   const users = ["John Doe - B", "John Doe - C", "John Doe - D"];
 
-  // Set header options inside useEffect to avoid setState during render
-  useEffect(() => {
-    navigation.setOptions({
-      headerShown: false // Hide the header for this screen
-    });
-  }, [navigation]);
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.innerView}>
@@ -83,7 +77,7 @@ export default function TopicsPostScreen() {
               key={ind}
               style={styles.topicItemView}
               onPress={() => {
-                // router.push("/userdetail");
+                router.push("/explore/chat");
               }}
             >
               <View style={styles.userItemView}>
@@ -232,7 +226,7 @@ const styles = StyleSheet.create({
   messageButton: {
     backgroundColor: "#262626",
     position: "absolute",
-    bottom: 70,
+    bottom: 30,
     right: 30,
     padding: 20,
     borderRadius: 50

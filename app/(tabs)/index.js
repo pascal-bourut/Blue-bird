@@ -11,10 +11,13 @@ import {
 } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useState } from "react";
+import ProfileModal from "../../components/modals/ProfileModal";
+import RegistrationModal from "../../components/modals/RegistrationModal";
 
 export default function HomeScreen() {
   const [show, setShow] = useState(false);
   const [codeSent, setCodeSent] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
 
   const onSubmit = () => {
     if (!codeSent) {
@@ -35,9 +38,13 @@ export default function HomeScreen() {
       </View>
 
       <View style={styles.boxContainer}>
-        <View style={styles.box}>
+        <TouchableOpacity
+          style={styles.box}
+          onPress={() => setShowProfileModal(true)}
+        >
           <Text style={styles.boxText}>Profile</Text>
-        </View>
+        </TouchableOpacity>
+
         <View style={styles.box}>
           <Text style={styles.boxText}>Topic</Text>
         </View>
@@ -45,48 +52,18 @@ export default function HomeScreen() {
           <Text style={styles.boxText}>Post</Text>
         </View>
       </View>
-      <Modal visible={show}>
-        <SafeAreaView style={{ flex: 1 }}>
-          <View style={{ paddingHorizontal: 15, flex: 1 }}>
-            <View style={{ paddingVertical: 40, alignItems: "flex-end" }}>
-              <TouchableWithoutFeedback onPress={() => setShow(false)}>
-                <AntDesign name="closecircleo" size={35} color="black" />
-              </TouchableWithoutFeedback>
-            </View>
-            <Text
-              style={[
-                styles.inputText,
-                { marginTop: 40, color: codeSent ? "gray" : "#262626" }
-              ]}
-            >
-              Enter your email
-            </Text>
 
-            <TextInput
-              style={[styles.input, { color: codeSent ? "gray" : "#262626" }]}
-              placeholderTextColor={codeSent ? "gray" : "#262626"}
-              placeholder="Your email"
-              editable={!codeSent}
-            />
-            {codeSent && (
-              <>
-                <Text style={[styles.inputText, { marginTop: 25 }]}>
-                  Enter your code
-                </Text>
-
-                <TextInput
-                  style={styles.input}
-                  placeholderTextColor={"#262626"}
-                  placeholder="Your code"
-                />
-              </>
-            )}
-            <TouchableOpacity onPress={onSubmit} style={styles.button}>
-              <Text style={styles.buttonText}>Submit</Text>
-            </TouchableOpacity>
-          </View>
-        </SafeAreaView>
-      </Modal>
+      <RegistrationModal
+        visible={show}
+        onClose={() => setShow(false)}
+        onPress={onSubmit}
+        codeSent={codeSent}
+      />
+      <ProfileModal
+        visible={showProfileModal}
+        onClose={() => setShowProfileModal(false)}
+        onPress={() => setShowProfileModal(false)}
+      />
     </SafeAreaView>
   );
 }

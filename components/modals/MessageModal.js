@@ -17,7 +17,7 @@ import { useState } from "react";
 const MessageModal = ({ visible, onClose, onPress }) => {
   const [toggle, setToggle] = useState(false);
   return (
-    <Modal visible={visible}>
+    <Modal animationType="slide" visible={visible}>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={{ paddingHorizontal: 15, flex: 1 }}>
           <View style={{ paddingVertical: 20, alignItems: "flex-end" }}>

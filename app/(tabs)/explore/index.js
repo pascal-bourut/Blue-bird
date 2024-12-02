@@ -13,15 +13,19 @@ import Fontisto from "@expo/vector-icons/Fontisto";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useRouter } from "expo-router";
+import AlertModal from "../../../components/modals/AlertModal";
+import { useState } from "react";
 
 export default function TopicsScreen() {
   const router = useRouter();
+  const [showAlert, setShowAlert] = useState(false);
+
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.innerView}>
         <View style={styles.headerView}>
           <Text style={styles.headerText}>Topics</Text>
-          <TouchableWithoutFeedback onPress={() => {}}>
+          <TouchableWithoutFeedback onPress={() => setShowAlert(true)}>
             <Text style={styles.headerRight}>Alert me</Text>
           </TouchableWithoutFeedback>
         </View>
@@ -56,7 +60,7 @@ export default function TopicsScreen() {
               key={val}
               style={styles.itemView}
               onPress={() => {
-                router.push("/topicpost");
+                router.push("/explore/topicpost");
               }}
             >
               <View style={styles.itemDescView}>
@@ -72,6 +76,11 @@ export default function TopicsScreen() {
           );
         })}
       </View>
+      <AlertModal
+        visible={showAlert}
+        onClose={() => setShowAlert(false)}
+        onPress={() => setShowAlert(false)}
+      />
     </SafeAreaView>
   );
 }
